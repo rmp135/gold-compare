@@ -1,0 +1,7 @@
+node_modules
+/app/*
+
+# Whitelist app files here.
+!/app/index.html
+!/app/package.json
+!app/main.js
