@@ -2,7 +2,7 @@
   <div id="app" class="container">
     <div class="pure-u-1-1">
       <label for="undercutInput">Under Percentage</label>
-      <input id="undercutInput" type="number" v-model="undercutPercentr"></input>
+      <input id="undercutInput" type="number" v-model="undercutPercent"></input>
     </div>
     <div>
       <table class="pure-table pure-table-horizontal">
@@ -15,7 +15,7 @@
         </thead>
         <tr class="item row" v-for="item, index in lines">
           <td>
-            <gold-edit v-model="item.price"></gold-view>
+            <gold-edit v-model="item.price" class="flexy"></gold-view>
           </td>
           <td>
             <input class="stack-size" type="number" min="1" v-model="item.size" @keydown.tab="createLine(index, $event)"></td>
@@ -33,7 +33,7 @@
           <td></td>
           <td></td>
           <td>
-            <gold-view :price="totalBuyPrice"></gold-view>
+            <goldv-iew :price="totalBuyPrice"></gold-view>
           </td>
           <td></td>
           <td>
@@ -46,7 +46,7 @@
           <td>
             <gold-view :price="totalUndercutPrice - totalBuyPrice"></gold-view>
           </td>
-          <td>{{ 100 - totalBuyPrice / totalUndercutPrice * 100 | trim }}%</td>
+          <td v-html="totalUndercutPercentAsHTML"></td>
           <td>
           </td>
         </tr>
@@ -61,12 +61,21 @@
   .stack-size {
     width: 50px;
   }
+  .flexy {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-around;
+  }
+  .flexy > * {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
 </style>
 <script>
   module.exports = {
     el: '#app',
     data: {
-      undercutPercentr: 5,
+      undercutPercent: 5,
       radio:0,
       lines: [
         {
@@ -77,25 +86,29 @@
       ]
     },
     computed: {
+      totalUndercutPercentAsHTML: function() {
+        var price = this.trim(this.totalBuyPrice / this.totalUndercutPrice * 100);
+        return (isNaN(price) ? "&#10717;" : price) + "%";
+      },
       totalStackSize: function() {
         return this.lines
         .filter((l, i) => i < this.radio)
         .map((l) => l.size)
-        .reduce(((p1, p2) => p1 + p2), 0)
+        .reduce(((p1, p2) => p1 + p2), 0);
       },
       totalBuyPrice: function() {
         return this.lines
         .filter((l, i) => i < this.radio)
         .map((l) => l.price * l.size)
-        .reduce(((p1, p2) => p1 + p2), 0)
+        .reduce(((p1, p2) => p1 + p2), 0);
       },
       totalUndercutPrice: function() {
-        return Math.floor((this.lines[this.radio].price - this.lines[this.radio].price * this.undercutPercentr / 100) * this.totalStackSize)
+        return Math.floor((this.lines[this.radio].price - this.lines[this.radio].price * this.undercutPercent / 100) * this.totalStackSize);
       }
     },
     methods: {
       undercutPrice: function(line) {
-        return Math.floor(line.price - line.price * this.undercutPercentr / 100)
+        return Math.floor(line.price - line.price * this.undercutPercent / 100)
       },
       createLine: function(index, e) {
         if (e.shiftKey) return;
@@ -107,9 +120,7 @@
           });
           e.preventDefault();
         }
-      }
-    },
-    filters: {
+      },
       trim: (num) => Math.floor(num*100) / 100
     },
     components: {

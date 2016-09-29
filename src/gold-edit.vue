@@ -23,7 +23,7 @@
     name:'gold-edit',
     props: ['value'],
     mounted: function() {
-      this.$refs.goldInput.select()
+      this.$refs.goldInput.select();
     },
     data() {
       return {
@@ -34,7 +34,7 @@
     },
     computed: {
       goldAsNumber: function() {
-        return this.copper + this.silver * 100 + this.gold * 10000
+        return this.copper + this.silver * 100 + this.gold * 10000;
       }
     }
   }
