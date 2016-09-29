@@ -1,5 +1,5 @@
 <template>
-  <div class="gold-view">
+  <div class="flexy gold-view">
     <img src="./money-gold.gif" />
       <div>{{ gold }}</div>
     <img src="./money-silver.gif" />
@@ -29,14 +29,14 @@
       }
     },
     computed: {
-      copper: function() {
-        return this.price%100
+      copper () {
+        return this.price % 100;
       },
-      silver: function() {
-        return Math.floor(this.price%10000/100)
+      silver () {
+        return Math.floor(this.price % 10000/100);
       },
-      gold: function() {
-         return Math.floor(this.price/10000)
+      gold () {
+         return Math.floor(this.price / 10000);
       }
     }
   }

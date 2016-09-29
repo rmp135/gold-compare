@@ -12,6 +12,10 @@ Run `npm install` to grab the dependencies.
 
 Run `npm run start` to pack the app and run the application.
 
+## Building for Production
+
+The NODE_ENV environment variable is used to trigger minification of the build.
+
 ## FAQ
 
 _Why use webpack for an electron app?_
