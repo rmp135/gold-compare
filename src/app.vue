@@ -33,7 +33,7 @@
           <td></td>
           <td></td>
           <td>
-            <goldv-iew :price="totalBuyPrice"></gold-view>
+            <gold-view :price="totalBuyPrice"></gold-view>
           </td>
           <td></td>
           <td>
