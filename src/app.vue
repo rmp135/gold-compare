@@ -86,31 +86,31 @@
       ]
     },
     computed: {
-      totalUndercutPercentAsHTML: function() {
+      totalUndercutPercentAsHTML () {
         var price = this.trim(this.totalBuyPrice / this.totalUndercutPrice * 100);
         return (isNaN(price) ? "&#10717;" : price) + "%";
       },
-      totalStackSize: function() {
+      totalStackSize () {
         return this.lines
         .filter((l, i) => i < this.radio)
         .map((l) => l.size)
         .reduce(((p1, p2) => p1 + p2), 0);
       },
-      totalBuyPrice: function() {
+      totalBuyPrice () {
         return this.lines
         .filter((l, i) => i < this.radio)
         .map((l) => l.price * l.size)
         .reduce(((p1, p2) => p1 + p2), 0);
       },
-      totalUndercutPrice: function() {
+      totalUndercutPrice () {
         return Math.floor((this.lines[this.radio].price - this.lines[this.radio].price * this.undercutPercent / 100) * this.totalStackSize);
       }
     },
     methods: {
-      undercutPrice: function(line) {
+      undercutPrice (line) {
         return Math.floor(line.price - line.price * this.undercutPercent / 100)
       },
-      createLine: function(index, e) {
+      createLine (index, e) {
         if (e.shiftKey) return;
         if (index == this.lines.length -1) {
           this.lines.push({

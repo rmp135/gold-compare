@@ -29,13 +29,13 @@
       }
     },
     computed: {
-      copper: function() {
+      copper () {
         return this.price % 100;
       },
-      silver: function() {
+      silver () {
         return Math.floor(this.price % 10000/100);
       },
-      gold: function() {
+      gold () {
          return Math.floor(this.price / 10000);
       }
     }

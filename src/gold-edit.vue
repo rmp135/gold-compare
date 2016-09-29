@@ -22,10 +22,10 @@
   module.exports = {
     name:'gold-edit',
     props: ['value'],
-    mounted: function() {
+    mounted () {
       this.$refs.goldInput.select();
     },
-    data() {
+    data () {
       return {
         gold:0,
         silver:0,
@@ -33,7 +33,7 @@
       }
     },
     computed: {
-      goldAsNumber: function() {
+      goldAsNumber () {
         return this.copper + this.silver * 100 + this.gold * 10000;
       }
     }
