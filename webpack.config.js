@@ -1,3 +1,18 @@
+var webpack = require('webpack');
+
+var plugins = []
+
+if (process.env.NODE_ENV === "production") {
+  plugins.push(
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        screw_ie8: true,
+        warnings:false
+      }
+    })
+  );
+};
+
 module.exports = {
   entry: './src/bootstrap.js',
   output: {
@@ -19,5 +34,6 @@ module.exports = {
         loader: 'file'
       }
     ]
-  }
+  },
+  plugins
 }
